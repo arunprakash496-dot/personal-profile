@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Simple Calculator</title>
+<style>
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f0f4f8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  .calculator {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0px 4px 15px rgba(0,0,0,0.2);
+    width: 320px;
+  }
+  .display {
+    background-color: #222;
+    color: #fff;
+    font-size: 2.5rem;
+    padding: 15px;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    text-align: right;
+    overflow-x: auto;
+  }
+  .buttons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    padding: 20px;
+  }
+  button {
+    font-size: 1.5rem;
+    border: none;
+    border-radius: 10px;
+    background-color: #e0e0e0;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+  button.operator {
+    background-color: #f57c00;
+    color: white;
+  }
+  button.operator:hover {
+    background-color: #ef6c00;
+  }
+  button.equal {
+    background-color: #4caf50;
+    color: white;
+    grid-column: span 2;
+  }
+  button.equal:hover {
+    background-color: #43a047;
+  }
+  button.clear {
+    background-color: #d32f2f;
+    color: white;
+  }
+  button.clear:hover {
+    background-color: #b71c1c;
+  }
+  button:hover {
+    background-color: #ccc;
+  }
+</style>
+</head>
+<body>
+  <div class="calculator">
+    <div class="display" id="display">0</div>
+    <div class="buttons">
+      <button class="clear" id="clear">C</button>
+      <button id="backspace">⌫</button>
+      <button class="operator" data-value="%">%</button>
+      <button class="operator" data-value="/">÷</button>
+
+      <button data-value="7">7</button>
+      <button data-value="8">8</button>
+      <button data-value="9">9</button>
+      <button class="operator" data-value="*">×</button>
+
+      <button data-value="4">4</button>
+      <button data-value="5">5</button>
+      <button data-value="6">6</button>
+      <button class="operator" data-value="-">−</button>
+
+      <button data-value="1">1</button>
+      <button data-value="2">2</button>
+      <button data-value="3">3</button>
+      <button class="operator" data-value="+">+</button>
+
+      <button data-value="0">0</button>
+      <button data-value=".">.</button>
+      <button class="equal" id="equal">=</button>
+    </div>
+  </div>
+
+<script>
+  const display = document.getElementById('display');
+  let expression = '';
+
+  function updateDisplay() {
+    display.textContent = expression || '0';
+  }
+
+  function isOperator(char) {
+    return ['+', '-', '*', '/', '%'].includes(char);
+  }
+
+  document.querySelectorAll('.buttons button').forEach(button => {
+    button.addEventListener('click', () => {
+      const value = button.getAttribute('data-value');
+
+      if (button.id === 'clear') {
+        expression = '';
+        updateDisplay();
+        return;
+      }
+
+      if (button.id === 'backspace') {
+        expression = expression.slice(0, -1);
+        updateDisplay();
+        return;
+      }
+
+      if (button.id === 'equal') {
+        try {
+          // Evaluate expression safely using Function constructor
+          // Replace % operator with modulus operator
+          let evalExpression = expression.replace(/%/g, '%');
+          let result = Function('"use strict";return (' + evalExpression + ')')();
+          expression = String(result);
+          updateDisplay();
+        } catch {
+          expression = '';
+          display.textContent = 'Error';
+        }
+        return;
+      }
+
+      // Avoid two operators in a row
+      if (isOperator(value)) {
+        if (expression === '' || isOperator(expression.slice(-1))) {
+          return;
+        }
+      }
+
+      // Allow only one decimal point in a number segment
+      if (value === '.') {
+        // Split expression by operators and check last number segment
+        const parts = expression.split(/[\+\-\*\/%]/);
+        if (parts[parts.length - 1].includes('.')) {
+          return;
+        }
+      }
+
+      expression += value;
+      updateDisplay();
+    });
+  });
+</script>
+</body>
+</html>
