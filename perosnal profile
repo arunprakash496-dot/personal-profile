@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Personal Profile</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f3f3f3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  .profile-card {
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    max-width: 320px;
+    text-align: center;
+    padding: 20px;
+    border-radius: 12px;
+  }
+  .profile-card img {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 15px;
+  }
+  .profile-card h1 {
+    margin: 10px 0 5px;
+    font-size: 22px;
+  }
+  .profile-card p.title {
+    color: gray;
+    font-size: 16px;
+    margin: 0 0 15px 0;
+  }
+  .profile-card p.description {
+    font-size: 15px;
+    color: #555;
+    margin-bottom: 20px;
+    padding: 0 10px;
+  }
+  .profile-card .social-icons a {
+    text-decoration: none;
+    margin: 0 10px;
+    font-size: 22px;
+    color: #333;
+    transition: color 0.3s;
+  }
+  .profile-card .social-icons a:hover {
+    color: #0077b5; /* Example hover color */
+  }
+  .profile-card button {
+    background-color: #0077b5;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    font-size: 16px;
+    border-radius: 25px;
+    cursor: pointer;
+    width: 100%;
+    transition: background-color 0.3s;
+  }
+  .profile-card button:hover {
+    background-color: #005f86;
+  }
+</style>
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+/>
+</head>
+<body>
+  <div class="profile-card">
+    <img src="https://via.placeholder.com/140" alt="Profile Photo" />
+    <h1>John Doe</h1>
+    <p class="title">Software Engineer</p>
+    <p class="description">Passionate about building scalable web applications and exploring new technologies.</p>
+    <div class="social-icons">
+      <a href="#" aria-label="Dribbble"><i class="fa fa-dribbble"></i></a>
+      <a href="#" aria-label="Twitter"><i class="fa fa-twitter"></i></a>
+      <a href="#" aria-label="LinkedIn"><i class="fa fa-linkedin"></i></a>
+      <a href="#" aria-label="Facebook"><i class="fa fa-facebook"></i></a>
+    </div>
+    <button>Contact</button>
+  </div>
+</body>
+</html>
